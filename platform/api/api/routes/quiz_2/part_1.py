@@ -81,7 +81,7 @@ def predict_quiz_2_part_1():
         else:
             is_smoker_probs = smoker_female_model.predict_proba(input_values)
 
-        is_smoker = is_smoker_probs[0][1] > 0.5
+        is_smoker: bool = bool(is_smoker_probs[0][1] > 0.5)
 
         # Predict the charges
         charges = 0
