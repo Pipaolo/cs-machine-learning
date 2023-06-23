@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def get_min_max_from_dataset(file_name: str) -> tuple[float, float]:
+def get_min_max_from_dataset(file_name: str) -> tuple[pd.Series, pd.Series]:
     """Get the minimum and maximum values from a dataset.
 
     Args:
