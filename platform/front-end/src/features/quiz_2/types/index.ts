@@ -64,30 +64,50 @@ export type RestingElectrocardiographicResults = z.infer<
   typeof RestingElectrocardiographicResults
 >;
 
-export const Quiz2Part2InitialFormSchema = z.object({
-  age: z
+export const HAttackInitialFormSchema = z.object({
+  age: z.coerce
     .number({
       required_error: validationErrors.required,
     })
-    .min(1, validationErrors.required)
-    .int(),
+    .min(1, validationErrors.min(0)),
   sex: z.string().min(1, validationErrors.required),
-  cp: z.number().min(1, validationErrors.required).int(),
-  trestbps: z.number().min(1, validationErrors.required).int(),
-  chol: z.number().min(1, validationErrors.required).int(),
-  thalach: z.number().min(1, validationErrors.required).int(),
+  cp: z
+    .string({
+      required_error: validationErrors.required,
+    })
+    .min(1, validationErrors.required),
+  trestbps: z.coerce.number().min(0, validationErrors.min(0)),
+  chol: z.coerce.number().min(0, validationErrors.min(0)),
+  thalach: z.coerce.number().min(0, validationErrors.min(0)),
 });
 
-export type Quiz2Part2InitialFormValues = z.infer<
-  typeof Quiz2Part2InitialFormSchema
+export type HAttackInitialFormSchema = z.infer<typeof HAttackInitialFormSchema>;
+
+export const HAttackAdmittedFormSchema = z.object({
+  fbs: z
+    .string({
+      required_error: validationErrors.required,
+    })
+    .min(0, validationErrors.required),
+  restecg: z
+    .string({
+      required_error: validationErrors.required,
+    })
+    .min(0, validationErrors.required),
+  thal: z.coerce.number().min(0, validationErrors.min(1)),
+});
+
+export type HAttackAdmittedFormSchema = z.infer<
+  typeof HAttackAdmittedFormSchema
 >;
 
-export const Quiz2Part2AdmittedFormSchema = Quiz2Part2InitialFormSchema.extend({
-  fbs: z.number().min(1, validationErrors.required).int(),
-  restecg: z.number().min(1, validationErrors.required).int(),
-  thal: z.number().min(1, validationErrors.required).int(),
+export const HAttackPredictionResponse = z.object({
+  probabilities: z.object({
+    heart_attack: z.number(),
+    no_heart_attack: z.number(),
+  }),
 });
 
-export type Quiz2Part2AdmittedFormValues = z.infer<
-  typeof Quiz2Part2AdmittedFormSchema
+export type HAttackPredictionResponse = z.infer<
+  typeof HAttackPredictionResponse
 >;

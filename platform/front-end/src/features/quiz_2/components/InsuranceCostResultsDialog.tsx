@@ -16,7 +16,11 @@ interface Props {
   results?: Quiz2Part1Response | null;
   form: Quiz2Part1FormSchema;
 }
-export const Quiz2Part1ResultsDialog = ({ form, results, ...props }: Props) => {
+export const InsuranceCostResultsDialog = ({
+  form,
+  results,
+  ...props
+}: Props) => {
   const bmi = useMemo(() => {
     if (!results) return 0;
 

@@ -32,7 +32,7 @@ import {
 } from "~/components/ui/select";
 import { validationErrors } from "~/utils/error";
 import { useEffect, useMemo, useState } from "react";
-import { Quiz2Part1ResultsDialog } from "~/features/quiz_2/components";
+import { InsuranceCostResultsDialog } from "~/features/quiz_2/components";
 import { ScaleLoader } from "react-spinners";
 
 const Quiz2Part1Page: NextPage = () => {
@@ -44,7 +44,8 @@ const Quiz2Part1Page: NextPage = () => {
       refetchOnWindowFocus: false,
     }
   );
-  const part1Prediction = api.quiz2.part1Prediction.useMutation();
+  const insuranceCostPrediction =
+    api.quiz2.insuranceCostPrediction.useMutation();
   const [isResultsDialogOpen, setIsResultsDialogOpen] = useState(false);
 
   const formMinMax = useMemo(() => {
@@ -110,7 +111,7 @@ const Quiz2Part1Page: NextPage = () => {
   }, [formMinMax, setValue]);
 
   const onSubmit = (data: Quiz2Part1FormSchema) => {
-    part1Prediction.mutate(data, {
+    insuranceCostPrediction.mutate(data, {
       onSuccess: () => {
         setIsResultsDialogOpen(true);
       },
@@ -257,8 +258,8 @@ const Quiz2Part1Page: NextPage = () => {
                       );
                     }}
                   />
-                  <Button disabled={part1Prediction.isLoading}>
-                    {part1Prediction.isLoading ? (
+                  <Button disabled={insuranceCostPrediction.isLoading}>
+                    {insuranceCostPrediction.isLoading ? (
                       <ScaleLoader color="white" height={15} />
                     ) : (
                       "Submit"
@@ -269,11 +270,11 @@ const Quiz2Part1Page: NextPage = () => {
             </CardContent>
           </Card>
         </div>
-        <Quiz2Part1ResultsDialog
+        <InsuranceCostResultsDialog
           form={form.getValues()}
           open={isResultsDialogOpen}
           onOpenChange={setIsResultsDialogOpen}
-          results={part1Prediction.data}
+          results={insuranceCostPrediction.data}
         />
       </GenericLayout>
     </>
