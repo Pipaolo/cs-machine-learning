@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "api"
+version = "0.1.0"
+description = ""
+authors = ["PaoloTolentino <tolentinopaolomatthew23@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+Flask = "^2.3.2"
+python = "^3.11"
+numpy = "^1.25.0"
+matplotlib = "^3.7.1"
+scikit-learn = "^1.2.2"
+pandas = "^2.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
