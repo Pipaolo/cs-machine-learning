@@ -55,9 +55,7 @@ def predict_quiz_2_part_1():
         smoker_female_model = cast(
             LogisticRegression, load_model("smoker_female_model.pb")
         )
-        smoker_male_model = cast(
-            LogisticRegression, load_model("smoker_female_model.pb")
-        )
+        smoker_male_model = cast(LogisticRegression, load_model("smoker_male_model.pb"))
 
         # Load the model the charges regression model
         smoker_female_charges_model = cast(
