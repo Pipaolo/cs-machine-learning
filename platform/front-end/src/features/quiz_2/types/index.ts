@@ -38,6 +38,8 @@ export const Quiz2Part1Response = z.object({
   is_smoker: z.boolean(),
   non_smoker_probability: z.number(),
   smoker_probability: z.number(),
+  intercept: z.number(),
+  coefficient: z.array(z.number()),
 });
 
 export type Quiz2Part1Response = z.infer<typeof Quiz2Part1Response>;

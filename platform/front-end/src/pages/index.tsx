@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
+import HomeProjectCard from "~/features/home/components/HomeProjectCard";
 
 const Home: NextPage = () => {
   return (
@@ -24,40 +25,30 @@ const Home: NextPage = () => {
           CS Machine Learning - Grupo ni Reginald
         </h4>
         <div className="container m-auto grid h-full grid-cols-1 place-content-center gap-4 sm:grid-cols-2 md:grid-cols-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Medical Insurance Prediction Model</CardTitle>
-              <CardDescription>Quiz 2 - Part 1</CardDescription>
-            </CardHeader>
-            <CardContent>
+          <HomeProjectCard
+            className="delay-100"
+            title="Medical Insurance Prediction Model"
+            description="Quiz 2 - Part 1"
+            link="/quiz_2/part_1"
+            content={
               <p>
                 This contains the application for the medical insturance
                 prediction engine
               </p>
-            </CardContent>
-            <CardFooter className="flex w-full items-center justify-center">
-              <Link href={"/quiz_2/part_1"} className="w-full">
-                <Button className="w-full">Visit</Button>
-              </Link>
-            </CardFooter>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Heart Attack Prediction Model</CardTitle>
-              <CardDescription>Quiz 2 - Part 2</CardDescription>
-            </CardHeader>
-            <CardContent>
+            }
+          />
+          <HomeProjectCard
+            className="delay-300"
+            title="Heart Attack Prediction Model"
+            description="Quiz 2 - Part 2"
+            link="/quiz_2/part_2"
+            content={
               <p>
                 This contains the application for the heart disease prediction
                 engine
               </p>
-            </CardContent>
-            <CardFooter className="flex w-full items-center justify-center">
-              <Link href={"/quiz_2/part_2"} className="w-full">
-                <Button className="w-full">Visit</Button>
-              </Link>
-            </CardFooter>
-          </Card>
+            }
+          />
         </div>
       </main>
     </>

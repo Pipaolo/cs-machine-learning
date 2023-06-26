@@ -126,8 +126,8 @@ const Quiz2Part1Page: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <GenericLayout>
-        <div className="m-auto flex h-full w-full items-center justify-center  p-4">
-          <Card className="w-full max-w-md">
+        <div className="m-auto flex h-full w-full transform flex-col items-center justify-center space-y-4 p-4 ">
+          <Card className="w-full max-w-md animate-in fade-in zoom-in-0 duration-500 ease-in-out">
             <CardHeader>
               <CardTitle>Insurance Cost Prediction</CardTitle>
               <CardDescription>Quiz 2 - Part 1</CardDescription>

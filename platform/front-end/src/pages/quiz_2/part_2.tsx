@@ -1,19 +1,8 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@radix-ui/react-select";
 import { type NextPage } from "next";
-import { init } from "next/dist/compiled/@vercel/og/satori";
 import Head from "next/head";
 import { useState } from "react";
-import { Form, useForm } from "react-hook-form";
-import { ScaleLoader } from "react-spinners";
+
 import { GenericLayout } from "~/components/layout/generic";
-import { Button } from "~/components/ui/button";
 import {
   Card,
   CardContent,
@@ -52,12 +41,15 @@ const HAttackPredictionPage: NextPage = () => {
 
   const onInitialFormSubmit = async (data: HAttackInitialFormSchema) => {
     setInitialFormData(null);
+    admittedPrediction.reset();
+
     await initialPrediction.mutateAsync(data, {
       onSuccess: () => {
         setInitialFormData(data);
       },
     });
   };
+
   const onAdmittedFormSubmit = async (data: HAttackAdmittedFormSchema) => {
     if (!initialFormData) return;
     setAdmittedFormData(null);
@@ -77,8 +69,10 @@ const HAttackPredictionPage: NextPage = () => {
   const renderAdmittedResult = () => {
     if (admittedPrediction.isLoading) return <div></div>;
     const initialPredictions = initialPrediction.data;
+
     if (!initialPredictions) return <div></div>;
     const currentPredictions = admittedPrediction.data;
+
     if (!currentPredictions) return <div></div>;
     const prevHAttackProb = initialPredictions.probabilities.heart_attack;
     const currentHAttackProb = currentPredictions.probabilities.heart_attack;
@@ -88,7 +82,7 @@ const HAttackPredictionPage: NextPage = () => {
     // Check if the heart attack probability is below the threshold
     if (!isNearPrevious || !isAboveThreshold) {
       return (
-        <Card className="flex w-full max-w-md flex-col p-4">
+        <Card className="flex w-full max-w-md flex-col p-4 animate-in fade-in slide-in-from-right-48 duration-500 ease-in-out">
           <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
             Heart Attack Probability:{" "}
             <span className="text-amber-500">
@@ -105,7 +99,7 @@ const HAttackPredictionPage: NextPage = () => {
 
     // Check if the heart attack probability is above the threshold
     return (
-      <Card className="flex w-full max-w-md flex-col space-y-4 p-4">
+      <Card className="flex w-full max-w-md flex-col space-y-4 p-4 animate-in fade-in slide-in-from-right-48 duration-500 ease-in-out">
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
           Heart Attack Probability:{" "}
           <span className="text-red-500">
@@ -171,7 +165,7 @@ const HAttackPredictionPage: NextPage = () => {
 
     if (heartAttackProb < POSITIVE_TRESHOLD) {
       return (
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-md animate-in fade-in slide-in-from-left-48 duration-500 ease-in-out">
           <div className="flex flex-col space-y-4 p-4">
             <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
               Heart Attack Probability:{" "}
@@ -190,7 +184,7 @@ const HAttackPredictionPage: NextPage = () => {
     }
 
     return (
-      <Card className="flex w-full max-w-md flex-col space-y-4 p-4">
+      <Card className="flex w-full max-w-md flex-col space-y-4 p-4 animate-in fade-in slide-in-from-left-48 duration-500 ease-in-out">
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
           Heart Attack Probability:{" "}
           <span className="text-red-500">
@@ -216,7 +210,7 @@ const HAttackPredictionPage: NextPage = () => {
 
     return (
       <>
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-md animate-in fade-in zoom-in-0 duration-500 ease-in-out">
           <CardHeader>
             <CardTitle>Patient Heart Attack Prediction</CardTitle>
             <CardDescription>Quiz 2 - Part 2</CardDescription>
