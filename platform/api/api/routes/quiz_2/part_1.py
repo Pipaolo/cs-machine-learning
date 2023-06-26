@@ -4,6 +4,7 @@ from api import app
 from typing import cast
 from marshmallow import Schema, fields, post_load, ValidationError
 from api.utils.models import load_model
+from sklearn.metrics import r2_score
 from sklearn.linear_model import LogisticRegression, LinearRegression
 
 
@@ -84,23 +85,34 @@ def predict_quiz_2_part_1():
         is_smoker: bool = bool(is_smoker_probs[0][1] > 0.5)
 
         # Predict the charges
-        charges = 0
+        model: LinearRegression = None
+
         if is_smoker:
             if is_male:
-                charges = smoker_male_charges_model.predict(input_values)[0]
+                model = smoker_male_charges_model
             else:
-                charges = smoker_female_charges_model.predict(input_values)[0]
+                model = smoker_female_charges_model
         else:
             if is_male:
-                charges = non_smoker_male_charges_model.predict(input_values)[0]
+                model = non_smoker_male_charges_model
             else:
-                charges = non_smoker_female_charges_model.predict(input_values)[0]
+                model = non_smoker_female_charges_model
+
+        intercept = model.intercept_
+        coefficients = model.coef_
+        charges = intercept + (
+            coefficients[0] * parsed_data.age
+            + coefficients[1] * bmi
+            + coefficients[2] * parsed_data.children
+        )
 
         return {
             "smoker_probability": is_smoker_probs[0][1],
             "non_smoker_probability": is_smoker_probs[0][0],
             "is_smoker": is_smoker,
             "charges": charges,
+            "coefficient": coefficients.tolist(),
+            "intercept": intercept,
         }
     except ValidationError as err:
         return {"errors": err.messages_dict}
