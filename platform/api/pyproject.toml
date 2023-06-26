@@ -7,11 +7,13 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 Flask = "^2.3.2"
-python = "^3.11"
+python = "^3.10"
 numpy = "^1.25.0"
 matplotlib = "^3.7.1"
 scikit-learn = "^1.2.2"
 pandas = "^2.0.2"
+flask-marshmallow = "^0.15.0"
+marshmallow = "^3.19.0"
 
 
 [build-system]
