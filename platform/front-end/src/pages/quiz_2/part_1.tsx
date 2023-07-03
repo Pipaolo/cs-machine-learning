@@ -21,7 +21,6 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Quiz2Part1FormSchema } from "~/features/quiz_2";
 import { api } from "~/utils/api";
-import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import {
   Select,
@@ -34,6 +33,7 @@ import { validationErrors } from "~/utils/error";
 import { useEffect, useMemo, useState } from "react";
 import { InsuranceCostResultsDialog } from "~/features/quiz_2/components";
 import { ScaleLoader } from "react-spinners";
+import { Input, NumberInput, NumberInputField } from "@chakra-ui/react";
 
 const Quiz2Part1Page: NextPage = () => {
   const minMax = api.data.minMax.useQuery(
@@ -118,6 +118,224 @@ const Quiz2Part1Page: NextPage = () => {
     });
   };
 
+  const renderContent = () => {
+    if (minMax.isLoading)
+      return (
+        <div className="flex h-full flex-col items-center justify-center">
+          <ScaleLoader color="#000000" />
+          <p className="mt-4">Loading...</p>
+        </div>
+      );
+
+    return (
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col space-y-4"
+        >
+          <FormField
+            name="name"
+            control={form.control}
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Full Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter full name..." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+          <FormField
+            name="sex"
+            control={form.control}
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Sex</FormLabel>
+                  <Select
+                    disabled={minMax.isLoading}
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="text-md px-4 py-5">
+                        <SelectValue placeholder="Select your sex" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+          <FormField
+            name="age"
+            control={form.control}
+            render={({ field }) => {
+              const {} = field;
+              return (
+                <FormItem>
+                  <FormLabel>Age</FormLabel>
+                  <FormControl>
+                    <NumberInput
+                      size={"md"}
+                      id={field.name}
+                      value={field.value}
+                      defaultValue={formMinMax.min.age}
+                      min={formMinMax.min.age}
+                      max={formMinMax.max.age}
+                      keepWithinRange
+                      onBlur={field.onBlur}
+                      onChange={(valueAsString, valueAsNumber) => {
+                        if (valueAsString === "") {
+                          field.onChange(0);
+                          return;
+                        }
+                        field.onChange(valueAsNumber);
+                      }}
+                    >
+                      <NumberInputField
+                        ref={field.ref}
+                        placeholder="Enter age..."
+                        rounded={"md"}
+                      />
+                    </NumberInput>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+          <FormField
+            name="height"
+            control={form.control}
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Height(cm)</FormLabel>
+                  <FormControl>
+                    <NumberInput
+                      size={"md"}
+                      id={field.name}
+                      value={field.value}
+                      defaultValue={1}
+                      min={1}
+                      max={500}
+                      keepWithinRange
+                      onBlur={field.onBlur}
+                      onChange={(valueAsString, valueAsNumber) => {
+                        if (valueAsString === "") {
+                          field.onChange(0);
+                          return;
+                        }
+                        field.onChange(valueAsNumber);
+                      }}
+                    >
+                      <NumberInputField
+                        ref={field.ref}
+                        placeholder="Enter height..."
+                        rounded={"md"}
+                      />
+                    </NumberInput>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+          <FormField
+            name="weight"
+            control={form.control}
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Weight(kg)</FormLabel>
+                  <FormControl>
+                    <NumberInput
+                      size={"md"}
+                      id={field.name}
+                      value={field.value}
+                      defaultValue={1}
+                      min={1}
+                      max={600}
+                      keepWithinRange
+                      onBlur={field.onBlur}
+                      onChange={(valueAsString, valueAsNumber) => {
+                        if (valueAsString === "") {
+                          field.onChange(0);
+                          return;
+                        }
+                        field.onChange(valueAsNumber);
+                      }}
+                    >
+                      <NumberInputField
+                        ref={field.ref}
+                        placeholder="Enter weight..."
+                        rounded={"md"}
+                      />
+                    </NumberInput>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+          <FormField
+            name="children"
+            control={form.control}
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Number of Children</FormLabel>
+                  <FormControl>
+                    <NumberInput
+                      size={"md"}
+                      id={field.name}
+                      value={field.value}
+                      defaultValue={formMinMax.min.children}
+                      min={formMinMax.min.children}
+                      max={formMinMax.max.children}
+                      keepWithinRange
+                      onBlur={field.onBlur}
+                      onChange={(valueAsString, valueAsNumber) => {
+                        if (valueAsString === "") {
+                          field.onChange(0);
+                          return;
+                        }
+                        field.onChange(valueAsNumber);
+                      }}
+                    >
+                      <NumberInputField
+                        ref={field.ref}
+                        placeholder="Enter number of children..."
+                        rounded={"md"}
+                      />
+                    </NumberInput>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+          <Button disabled={insuranceCostPrediction.isLoading}>
+            {insuranceCostPrediction.isLoading ? (
+              <ScaleLoader color="white" height={15} />
+            ) : (
+              "Submit"
+            )}
+          </Button>
+        </form>
+      </Form>
+    );
+  };
+
   return (
     <>
       <Head>
@@ -132,142 +350,7 @@ const Quiz2Part1Page: NextPage = () => {
               <CardTitle>Insurance Cost Prediction</CardTitle>
               <CardDescription>Quiz 2 - Part 1</CardDescription>
             </CardHeader>
-            <CardContent>
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="flex flex-col space-y-4"
-                >
-                  <FormField
-                    name="name"
-                    control={form.control}
-                    render={({ field }) => {
-                      return (
-                        <FormItem>
-                          <FormLabel>Full Name</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="Enter full name..."
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-                  <FormField
-                    name="sex"
-                    control={form.control}
-                    render={({ field }) => {
-                      return (
-                        <FormItem>
-                          <FormLabel>Sex</FormLabel>
-                          <Select
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select your sex" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="male">Male</SelectItem>
-                              <SelectItem value="female">Female</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-                  <FormField
-                    name="age"
-                    control={form.control}
-                    render={({ field }) => {
-                      return (
-                        <FormItem>
-                          <FormLabel>Age</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="number"
-                              placeholder="Enter age..."
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-                  <FormField
-                    name="height"
-                    control={form.control}
-                    render={({ field }) => {
-                      return (
-                        <FormItem>
-                          <FormLabel>Height(cm)</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="number"
-                              placeholder="Enter height..."
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-                  <FormField
-                    name="weight"
-                    control={form.control}
-                    render={({ field }) => {
-                      return (
-                        <FormItem>
-                          <FormLabel>Weight(kg)</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="number"
-                              placeholder="Enter weight..."
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-                  <FormField
-                    name="children"
-                    control={form.control}
-                    render={({ field }) => {
-                      return (
-                        <FormItem>
-                          <FormLabel>Number of Children</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="number"
-                              placeholder="Enter number of children..."
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-                  <Button disabled={insuranceCostPrediction.isLoading}>
-                    {insuranceCostPrediction.isLoading ? (
-                      <ScaleLoader color="white" height={15} />
-                    ) : (
-                      "Submit"
-                    )}
-                  </Button>
-                </form>
-              </Form>
-            </CardContent>
+            <CardContent>{renderContent()}</CardContent>
           </Card>
         </div>
         <InsuranceCostResultsDialog
