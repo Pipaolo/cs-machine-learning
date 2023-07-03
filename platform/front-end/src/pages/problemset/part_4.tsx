@@ -51,8 +51,8 @@ const DiabeticPredictionPage: NextPage = () => {
             />
             {diabeticPrediction.data && (
               <DiabeticPredictionResults
-                results={diabeticPrediction.data!}
-                formData={diabeticPrediction.variables!}
+                results={diabeticPrediction.data}
+                formData={diabeticPrediction.variables}
                 {...resultsDisclosure}
               />
             )}
