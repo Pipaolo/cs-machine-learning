@@ -49,6 +49,17 @@ const Home: NextPage = () => {
               </p>
             }
           />
+          <HomeProjectCard
+            className="delay-300"
+            title="Diabetic Prediction Model"
+            description="Problem Set 4"
+            link="/problemset/part_4"
+            content={
+              <p>
+                This contains the application for the diabetic prediction engine
+              </p>
+            }
+          />
         </div>
       </main>
     </>
