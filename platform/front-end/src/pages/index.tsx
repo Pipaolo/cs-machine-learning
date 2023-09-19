@@ -22,7 +22,7 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen w-full flex-col items-center  bg-slate-950">
         <h4 className="p-4 text-center text-2xl font-bold text-white">
-          CS Machine Learning - Grupo ni Reginald
+          CS Machine Learning
         </h4>
         <div className="container m-auto grid h-full grid-cols-1 place-content-center gap-4 sm:grid-cols-2 md:grid-cols-4">
           <HomeProjectCard
